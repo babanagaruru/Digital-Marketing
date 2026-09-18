@@ -27,17 +27,23 @@ export default function App() {
   const fetchLeadsFromBackend = async () => {
     try {
       const res = await fetch('/api/leads');
-      if (res.ok) {
+      const contentType = res.headers.get('content-type') || '';
+      if (res.ok && contentType.includes('application/json')) {
         const data = await res.json();
         if (data.leads && Array.isArray(data.leads) && data.leads.length > 0) {
           setLeads(data.leads);
         }
         setBackendConnected(true);
       } else {
+        // Running on static hosting like GitHub Pages without an active Express container
         setBackendConnected(false);
+        try {
+          const saved = localStorage.getItem('apexdigital_leads');
+          if (saved) setLeads(JSON.parse(saved));
+        } catch (e) {}
       }
     } catch (err) {
-      console.warn('Backend /api/leads not reachable, using local state:', err);
+      // Offline or static hosting environment
       setBackendConnected(false);
       try {
         const saved = localStorage.getItem('apexdigital_leads');
