@@ -1,0 +1,6 @@
+{
+  "name": "ApexDigital Growth Studio",
+  "description": "High-converting digital marketing portfolio offering Facebook & Instagram ads management, SEO optimization, website speed boosting, and persistent SQLite database lead capture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
