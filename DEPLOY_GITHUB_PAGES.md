@@ -26,14 +26,19 @@ GitHub replied with a **404 Not Found**. The JavaScript never loaded, so `<div i
 ## 2. What Was Fixed in This Codebase
 
 1. **Configured Relative Base in `vite.config.ts`**:
-   We added `base: './'` so all script and stylesheet tags are generated with relative URLs:
+   Added `base: './'` so all script and stylesheet tags are generated with relative URLs:
    ```html
    <!-- ✅ Works everywhere (root, subfolder, GitHub Pages) -->
    <script type="module" src="./assets/index-xxx.js"></script>
    <link rel="stylesheet" href="./assets/index-xxx.css">
    ```
-2. **Added Automated GitHub Actions Workflow (`.github/workflows/deploy.yml`)**:
-   Whenever you push to `main` or `master`, GitHub automatically builds and deploys your website directly to GitHub Pages without any manual steps!
+
+2. **Fixed the GitHub Actions CI Workflow (`.github/workflows/deploy.yml`)**:
+   * **Upgraded from Node 20 to Node 22 (LTS)**: Resolves the `"Node 20 is being deprecated"` warning.
+   * **Removed Strict Lockfile Cache Requirement**: Previously, `actions/setup-node` crashed because it looked for `package-lock.json`. We removed the rigid lock requirement.
+   * **Added `npm install --legacy-peer-deps`**: Installs dependencies smoothly without peer dependency conflicts.
+   * **Added `package-lock.json` and `.nojekyll`**: Generated the missing `package-lock.json` and added `/public/.nojekyll` so GitHub Pages never ignores assets or runs Jekyll preprocessing.
+
 3. **Resilient Static Host Handling**:
    When your site is hosted statically on GitHub Pages (where no active Node or Python server is running), the application automatically falls back to client-side storage (`localStorage`) and interactive simulation mode, so all forms, audits, calculators, and modals continue to work.
 
