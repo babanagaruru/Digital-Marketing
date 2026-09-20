@@ -62,6 +62,12 @@ The project supports deployment using GitHub Pages.
 
 See `DEPLOY_GITHUB_PAGES.md` for deployment instructions.
 
+# Digital Marketing 🚀
+
+> A modern full-stack digital marketing web application.
+
+🔗 **Live Demo:** https://bit.ly/4cQRM8L
+
 ## 👨‍💻 Author
 
 Baba Nagaruru
